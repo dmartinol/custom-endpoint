@@ -7,12 +7,11 @@
     <name>custom-endpoints</name>
     <description>Custom Endpoints</description>
 
-    <parent>
-        <groupId>com.redhat.ecosystem.appeng.fsi</groupId>
-        <artifactId>common-pom</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../</relativePath>
-    </parent>
+    <properties>
+        <version.org.kie>7.44.0.Final-redhat-00003</version.org.kie>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -66,16 +65,31 @@
             <version>1.7.25</version>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <skip>false</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
+    <profiles>
+        <profile>
+            <id>rhpam</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>redhat-ga</id>
+                    <url>https://maven.repository.redhat.com/ga/</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>redhat-ga</id>
+                    <url>https://maven.repository.redhat.com/ga/</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <distributionManagement>
+                <repository>
+                    <id>rhpam</id>
+                    <url>https://repo.repsy.io/mvn/dmartino/rhpam</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
